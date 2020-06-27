@@ -120,10 +120,10 @@ Sender Score:
 		<cfchartdata item="Volume" value="#abs(rp_ip_results.results.volume.impact)#">
 		<cfchartdata item="Rejected Rate" value="#abs(rp_ip_results.results.rejected_rate.impact)#">
 		<cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#">
-                <cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#">
-                <cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#">
-                <cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#">
-                <cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#">
+        <cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#">
+        <cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#">
+        <cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#">
+        <cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#">
 	</cfchartseries>
 </cfchart>
 <br />
