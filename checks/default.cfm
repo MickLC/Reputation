@@ -46,7 +46,7 @@ order by provider
 </cfhttp>
 <cfset bottom10=deserializeJSON(Results_RP_bottom_10.filecontent) />
 
-<!---<cfdump var="#bottom10#" />--->
+<cfdump var="#bottom10#" />
 
 <table>
 	<tr>
