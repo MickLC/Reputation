@@ -170,7 +170,7 @@ Sender Score:
         </tr>
         <cfloop index="i" from="1" to="#arrayLen(rp_results.results.reputation_measures)#">
 				<cfoutput>
-					<cfif isDefined "rp_results.results.reputation_measures[i].impact">
+					<cfif len(rp_results.results.reputation_measures[i].impact)>
                         <tr>
                                 <td>#rp_results.results.reputation_measures[i].name#</td>
                                 <td>#rp_results.results.reputation_measures[i].impact#</td>
