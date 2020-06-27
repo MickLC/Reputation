@@ -55,7 +55,7 @@ order by provider
 	</tr>
 	<tr>
 		<td>
-		<cfloop index="i" from="1" to="#arrayLen(bottom10.results)#">
+		<cfloop index="i" from="1" to="#arrayLen(bottom10.result)#">
 		<cfoutput>
 		#bottom10.results[i].ip#
 		<table>
