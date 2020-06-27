@@ -44,6 +44,7 @@ order by provider
       <cfhttpparam type="header" name="Content-Type" value="application/x-www-form-urlencoded" />
       <cfhttpparam type="header" name="Accept" value="application/json" />
 </cfhttp>
+<cfdump var="#Results_RP_bottom_10#" />
 <cfset bottom10=deserializeJSON(Results_RP_bottom_10.filecontent) />
 
 <cfdump var="#bottom10#" />
