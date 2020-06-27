@@ -117,13 +117,13 @@ Sender Score:
 
 <cfchart format="png" chartheight="300" chartwidth="500" title="Impacts to Score" xaxistitle="Factor" yaxistitle="Points" categorylabelpositions="up_45">
 	<cfchartseries type="bar">
-		<cfif isDefined "rp_ip_results.results.volume.impact"><cfchartdata item="Volume" value="#abs(rp_ip_results.results.volume.impact)#"></cfif>
-		<cfif isDefined "rp_ip_results.results.rejected_rate.impact"><cfchartdata item="Rejected Rate" value="#abs(rp_ip_results.results.rejected_rate.impact)#"></cfif>
-		<cfif isDefined "rp_ip_results.results.filtered_rate.impact"><cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#"></cfif>
-        <cfif isDefined "rp_ip_results.results.unknown_rate.impact"><cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#"></cfif>
-        <cfif isDefined "rp_ip_results.results.complaint_rate.impact"><cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#"></cfif>
+		<cfif len(rp_ip_results.results.volume.impact)><cfchartdata item="Volume" value="#abs(rp_ip_results.results.volume.impact)#"></cfif>
+		<cfif len(rp_ip_results.results.rejected_rate.impact)><cfchartdata item="Rejected Rate" value="#abs(rp_ip_results.results.rejected_rate.impact)#"></cfif>
+		<cfif len(rp_ip_results.results.filtered_rate.impact)><cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#"></cfif>
+        <cfif len(rp_ip_results.results.unknown_rate.impact)><cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#"></cfif>
+        <cfif len(rp_ip_results.results.complaint_rate.impact)><cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#"></cfif>
         <cfif len(rp_ip_results.results.blacklist.impact)><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif>
-        <cfif isDefined "rp_ip_results.results.spam_traps.impact"><cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#"></cfif>
+        <cfif len(rp_ip_results.results.spam_traps.impact)><cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#"></cfif>
 	</cfchartseries>
 </cfchart>
 <br />
