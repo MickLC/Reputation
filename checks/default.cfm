@@ -6,7 +6,7 @@ order by provider
 
 <!--- Root endpoints --->
 <cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
-<cfset endpoint_rp = 'https://api.returnpath.com/v1/' />
+<cfset endpoint_rp = 'https://api.returnpath.com/v2/' />
 
 <!--- API Keys --->
 <cfset apikey_250 = getKey[1].apikey />
@@ -39,7 +39,7 @@ order by provider
 <cfdump var="#Results_250a#"/>
 --->
 
-<cfset repmon_ip_rp=repmon_ip_rp & "?group_num=1&group_length=10&customer_name=Salesforce%20Marketing%20Cloud&order_by=score" />
+<cfset repmon_ip_rp=repmon_ip_rp & "?group_num=1&group_length=10&order_by=score" />
 <cfhttp url="#repmon_ip_rp#" method="get" result="Results_RP_bottom_10" username="#apikey_rp#" timeout="999">
       <cfhttpparam type="header" name="Content-Type" value="application/x-www-form-urlencoded" />
       <cfhttpparam type="header" name="Accept" value="application/json" />
