@@ -40,11 +40,12 @@ order by provider
 --->
 
 <cfset repmon_ip_rp=repmon_ip_rp & "?group_num=1&group_length=10&customer_name=Salesforce%20Marketing%20Cloud&order_by=score" />
+<cfoutput>#repmon_ip_rp#</cfoutput>
 <cfhttp url="#repmon_ip_rp#" method="get" result="Results_RP_bottom_10" username="#apikey_rp#" timeout="999">
       <cfhttpparam type="header" name="Content-Type" value="application/x-www-form-urlencoded" />
       <cfhttpparam type="header" name="Accept" value="application/json" />
 </cfhttp>
-<cfdump var="#Results_RP_bottom_10#" />
+<cfdump var="#Results_RP_bottom_10.filecontent#" />
 <cfset bottom10=deserializeJSON(Results_RP_bottom_10.filecontent) />
 
 <cfdump var="#bottom10#" />
