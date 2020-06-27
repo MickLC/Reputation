@@ -122,7 +122,7 @@ Sender Score:
 		<cfif isDefined "rp_ip_results.results.filtered_rate.impact"><cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#"></cfif>
         <cfif isDefined "rp_ip_results.results.unknown_rate.impact"><cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#"></cfif>
         <cfif isDefined "rp_ip_results.results.complaint_rate.impact"><cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#"></cfif>
-        <cfif len("rp_ip_results.results.blacklist.impact")><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif>
+        <cfif len(rp_ip_results.results.blacklist.impact)><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif>
         <cfif isDefined "rp_ip_results.results.spam_traps.impact"><cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#"></cfif>
 	</cfchartseries>
 </cfchart>
