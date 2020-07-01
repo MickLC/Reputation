@@ -4,13 +4,13 @@ from apikeys
 order by provider
 </cfquery>
 
-<!--- Root endpoints --->
-<cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
-<cfset endpoint_rp = 'https://' & #apikey_rp# & 'api.returnpath.com/v1/' />
-
 <!--- API Keys --->
 <cfset apikey_250 = getKey[1].apikey />
 <cfset apikey_rp = getKey[2].apikey />
+
+<!--- Root endpoints --->
+<cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
+<cfset endpoint_rp = 'https://' & #apikey_rp# & 'api.returnpath.com/v1/' />
 
 <!--- 250ok endpoints --->
 <cfset blacklist_endpoint_250 = #endpoint_250# & 'blacklistinformant/blacklisted' />
