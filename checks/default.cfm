@@ -10,7 +10,7 @@ order by provider
 
 <!--- Root endpoints --->
 <cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
-<cfset endpoint_rp = 'https://' & #apikey_rp# & 'api.returnpath.com/v1/' />
+<cfset endpoint_rp = 'https://' & #apikey_rp# & '@api.returnpath.com/v1/' />
 
 <!--- 250ok endpoints --->
 <cfset blacklist_endpoint_250 = #endpoint_250# & 'blacklistinformant/blacklisted' />
