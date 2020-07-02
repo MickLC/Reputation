@@ -17,16 +17,16 @@
 	
 <!--- Root endpoints --->
 <cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
-<cfset endpoint_rp = 'https://api.returnpath.com/v1/' />
+<cfset endpoint_rp = 'https://api.returnpath.com/' />
 
 <!--- 250ok endpoints --->
 <cfset blacklist_endpoint_250 = #endpoint_250# & 'blacklistinformant/blacklisted' />
 <cfset trap_endpoint_250 = #endpoint_250# & 'reputationinformant/detail' />
 
 <!--- Return Path endpoints --->
-<cfset repmon_senders_rp = #endpoint_rp# & 'repmon/senders/' />
-<cfset repmon_senders_ips_rp = #endpoint_rp# & 'repmon/ips/' />
-<cfset blacklists_ips_rp = #endpoint_rp# & 'blacklists/ips' />
+<cfset repmon_senders_rp = #endpoint_rp# & 'v1/repmon/senders/' />
+<cfset repmon_senders_ips_rp = #endpoint_rp# & 'v1/repmon/ips/' />
+<cfset blacklists_ips_rp = #endpoint_rp# & 'v2/blacklists/ips' />
 
 <cfset repmon_senders_rp=repmon_senders_rp & form.ip />
 <cfhttp url="#repmon_senders_rp#" method="get" result="Results_RP" username="#apikey_rp#" timeout="999">
@@ -48,7 +48,7 @@
 </cfhttp>
 <cfset talos_ip_results=deserializeJSON(talos.filecontent) />
 <!---<cfdump var="#talos_ip_results#">--->
-<!---<cfdump var="#rp_results#" />--->
+<cfdump var="#rp_ip_results#" />
 <!---<cfdump var="#form#" />--->
 
 <html>
@@ -129,7 +129,7 @@ Sender Score:
 		<cfif len(rp_ip_results.results.filtered_rate.impact)><cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#"></cfif>
         <cfif len(rp_ip_results.results.unknown_rate.impact)><cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#"></cfif>
         <cfif len(rp_ip_results.results.complaint_rate.impact)><cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#"></cfif>
-        <cfif len(rp_ip_results.results.blacklist.impact)><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif>
+        <!--- <cfif len(rp_ip_results.results.blacklist.impact)><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif> --->
         <cfif len(rp_ip_results.results.spam_traps.impact)><cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#"></cfif>
 	</cfchartseries>
 </cfchart>
