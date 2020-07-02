@@ -6,7 +6,7 @@ order by provider
 
 <!--- API Keys --->
 <cfset apikey_250 = getKey[1].apikey />
-<cfset apikey_rp = getKey[2].apikey />
+<cfset apikey_rp = getKey[3].apikey />
 
 <!--- Root endpoints --->
 <cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
