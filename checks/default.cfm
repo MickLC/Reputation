@@ -6,9 +6,9 @@ order by provider
 
 <!--- API Keys --->
 <cfloop query="getKey" >
-	<cfif getKey.provider = '250ok'>
+	<cfif getKey.provider is '250ok'>
 		<cfset apikey_250 = getKey.apikey />
-	<cfelseif getKey.provider = 'Return Path'>
+	<cfelseif getKey.provider is 'Return Path'>
 		<cfset apikey_rp = getKey.apikey />
 	</cfif>
 </cfloop>
