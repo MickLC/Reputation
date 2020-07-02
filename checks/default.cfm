@@ -5,12 +5,17 @@ order by provider
 </cfquery>
 
 <!--- API Keys --->
-<cfset apikey_250 = getKey[1].apikey />
-<cfset apikey_rp = getKey[3].apikey />
+<cfloop query="getKey" >
+	<cfif getKey.provider = '250ok'>
+		<cfset apikey_250 = getKey.apikey />
+	<cfelseif getKey.provider = 'Return Path'>
+		<cfset apikey_rp = getKey.apikey />
+	</cfif>
+</cfloop>
 
 <!--- Root endpoints --->
 <cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
-<cfset endpoint_rp = 'https://' & #apikey_rp# & '@api.returnpath.com/v1/' />
+<cfset endpoint_rp = 'https://api.returnpath.com/v1/' />
 
 <!--- 250ok endpoints --->
 <cfset blacklist_endpoint_250 = #endpoint_250# & 'blacklistinformant/blacklisted' />
@@ -40,14 +45,14 @@ order by provider
 --->
 
 <cfset repmon_ip_rp=repmon_ip_rp & "?group_num=1&group_length=10&customer_name=Salesforce%20Marketing%20Cloud&order_by=score" />
-<!---<cfhttp url="#repmon_ip_rp#" method="get" result="Results_RP_bottom_10" username="#apikey_rp#" timeout="999">--->
-<cfhttp url="#repmon_ip_rp#" method="get" result="Results_RP_bottom_10" timeout="999">
+<cfhttp url="#repmon_ip_rp#" method="get" result="Results_RP_bottom_10" username="#apikey_rp#" timeout="999">
+<!--- <cfhttp url="#repmon_ip_rp#" method="get" result="Results_RP_bottom_10" timeout="999"> --->
 	<cfhttpparam type="header" name="Content-Type" value="application/x-www-form-urlencoded" />
       <cfhttpparam type="header" name="Accept" value="application/json" />
 </cfhttp>
-<cfdump var="#Results_RP_bottom_10#" />
+<!--- <cfdump var="#Results_RP_bottom_10#" /> --->
 <cfset bottom10=deserializeJSON(Results_RP_bottom_10.filecontent) />
-<cfdump var="#bottom10#" />
+<!--- <cfdump var="#bottom10#" /> --->
 
 <!---<cfdump var="#bottom10#" />--->
 
@@ -58,7 +63,7 @@ order by provider
 	</tr>
 	<tr>
 		<td>
-		<cfloop index="i" from="1" to="#arrayLen(bottom10.result)#">
+		<cfloop index="i" from="1" to="#arrayLen(bottom10.results)#">
 		<cfoutput>
 		#bottom10.results[i].ip#
 		<table>
