@@ -1,16 +1,23 @@
-<cfquery name="getKey" datasource="reputation" returntype="array">
-select provider, apikey
-from apikeys
-order by provider
+<cfquery name="getKey" datasource="reputation">
+	select provider, apikey
+	from apikeys
+	order by provider
 </cfquery>
-
+	
+<!--- API Keys --->
+<cfloop query="getKey" >
+	<cfif getKey.provider is '250ok'>
+		<cfset apikey_250 = getKey.apikey />
+	<cfelseif getKey.provider is 'Return Path'>
+		<cfset apikey_rp = getKey.apikey />
+	<cfelseif getKey.provider is 'monapi'>
+		<cfset apikey_rp = getKey.apikey />
+	</cfif>
+</cfloop>
+	
 <!--- Root endpoints --->
 <cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
 <cfset endpoint_rp = 'https://api.returnpath.com/v1/' />
-
-<!--- API Keys --->
-<cfset apikey_250 = getKey[1].apikey />
-<cfset apikey_rp = getKey[2].apikey />
 
 <!--- 250ok endpoints --->
 <cfset blacklist_endpoint_250 = #endpoint_250# & 'blacklistinformant/blacklisted' />
