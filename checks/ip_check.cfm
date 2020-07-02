@@ -93,6 +93,13 @@ Sender Score:
 	<cfelse>
 		N/A (something weird happened here)
 	</cfif>
+<br />
+Risk:
+	<cfif isArray(rp_results.results.sender_score)>
+		None
+	<cfelseif structKeyExists(rp_results.results.sender_score,"risk")>
+		#rp_results.results.sender_score.risk#
+	</cfif>
 </p>
 </cfoutput>
 
