@@ -1,4 +1,4 @@
-<cfquery name="getKey" datasource="reputation" returntype="array">
+<cfquery name="getKey" datasource="reputation">
 select provider, apikey
 from apikeys
 order by provider
