@@ -48,7 +48,7 @@
 </cfhttp>
 <cfset talos_ip_results=deserializeJSON(talos.filecontent) />
 <!---<cfdump var="#talos_ip_results#">--->
-<cfdump var="#rp_ip_results#" />
+<!---<cfdump var="#rp_ip_results#" />--->
 <!---<cfdump var="#form#" />--->
 
 <html>
@@ -170,6 +170,18 @@ Risk:
                 </cfloop>
         </cfchartseries>
 </cfchart>
+<p>Spam traps</p>
+<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
+	<cfchartseries type="line">
+			<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
+					<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.complaint_rate.trend[a].value#">
+			</cfloop>
+	</cfchartseries>
+</cfchart>
+<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count.number#<br />
+Pristine: #rp_ip_results.results.spam_traps.pristine_count.number#<br />
+Recycled: #rp_ip_results.results.spam_traps.recycled_count.number# </cfoutput></p>
+
 <cfelse>
 <p>
 <cfloop index="i" from="1" to="#arrayLen(rp_ip_results.errors)#">
