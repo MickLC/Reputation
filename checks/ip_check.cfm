@@ -174,13 +174,13 @@ Risk:
 <cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
 	<cfchartseries type="line">
 			<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
-					<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.complaint_rate.trend[a].value#">
+					<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.spam_traps.trend[a].value#">
 			</cfloop>
 	</cfchartseries>
 </cfchart>
-<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count.number#<br />
-Pristine: #rp_ip_results.results.spam_traps.pristine_count.number#<br />
-Recycled: #rp_ip_results.results.spam_traps.recycled_count.number# </cfoutput></p>
+<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count#<br />
+Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
+Recycled: #rp_ip_results.results.spam_traps.recycled_count# </cfoutput></p>
 
 <cfelse>
 <p>
