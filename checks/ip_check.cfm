@@ -61,6 +61,7 @@
 <body>
 
 <cfoutput>
+	<cfdump var="#application.rp_auth#" />
 <h1>Summary for #rp_results.results.request#</h1>
 <h2>Sending domain: 
 	<cfif structKeyExists(rp_results.results,"base_domain")>
