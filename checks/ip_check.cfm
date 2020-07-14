@@ -47,7 +47,7 @@
 	<cfhttpparam type="header" name="Accept" value="application/json">
 	<cfhttpparam type="header" name="Authorization" value="#rp_bearer_token#">
 </cfhttp>
-<cfset rp_blacklist_result = deserializeJSON(Results_RP_blacklist) />
+<cfset rp_blacklist_result = deserializeJSON(Results_RP_blacklist.filecontent) />
 
 <cfhttp url="https://talosintelligence.com/sb_api/query_lookup?query=/api/v2/details/ip/&query_entry=#form.ip#" timeout="50" result="talos" useragent="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Geckoo/20100101 Firefox/64.0/">
 	<cfhttpparam type="header" name="Referer" value="https://talosintelligence.com/reputation_center/lookup?search=#form.ip#">
