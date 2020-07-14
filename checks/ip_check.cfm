@@ -26,7 +26,8 @@
 <!--- Return Path endpoints --->
 <cfset repmon_senders_rp = #endpoint_rp# & 'v1/repmon/senders/' />
 <cfset repmon_senders_ips_rp = #endpoint_rp# & 'v1/repmon/ips/' />
-<cfset blacklists_ips_rp = #endpoint_rp# & 'v2/blacklists/ips' />
+<cfset blacklists_ips_rp = #endpoint_rp# & 'v2/blacklist/address/ip/' & form.ip & '?include_previous=true' />
+<cfset rp_bearer_token = 'bearer '& #session.Auth_RP.token# />
 
 <cfset repmon_senders_rp=repmon_senders_rp & form.ip />
 <cfhttp url="#repmon_senders_rp#" method="get" result="Results_RP" username="#apikey_rp#" timeout="999">
@@ -42,6 +43,12 @@
 </cfhttp>
 <cfset rp_ip_results=deserializeJSON(Results_ips_RP.filecontent) />
 
+<cfhttp url="#blacklists_ips_rp#" method="get" result="Results_RP_blacklist" timeout="999">
+	<cfhttpparam type="header" name="Accept" value="application/json">
+	<cfhttpparam type="header" name="Authorization" value="#rp_bearer_token#">
+</cfhttp>
+<cfset rp_blacklist_result = deserializeJSON(Results_RP_blacklist) />
+
 <cfhttp url="https://talosintelligence.com/sb_api/query_lookup?query=/api/v2/details/ip/&query_entry=#form.ip#" timeout="50" result="talos" useragent="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Geckoo/20100101 Firefox/64.0/">
 	<cfhttpparam type="header" name="Referer" value="https://talosintelligence.com/reputation_center/lookup?search=#form.ip#">
 	<cfhttpparam type="header" name="Accept" value="application/json">
@@ -49,6 +56,7 @@
 <cfset talos_ip_results=deserializeJSON(talos.filecontent) />
 <!---<cfdump var="#talos_ip_results#">--->
 <!---<cfdump var="#rp_ip_results#" />--->
+<cfdump var="#rp_blacklist_result#" />
 <!---<cfdump var="#form#" />--->
 
 <html>

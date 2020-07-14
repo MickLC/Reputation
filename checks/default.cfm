@@ -171,4 +171,3 @@ order by provider
 		</table>
 	</body>
 </html>
-<cfset session.userauth = "0" />
