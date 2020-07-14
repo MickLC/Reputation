@@ -19,6 +19,20 @@
 		</cfquery>
 		<cfif auth.recordcount GT 0>
 			<cfset session.userauth = 1>
+			<cfquery name="creds">
+				select *
+				from credentials
+				where provider = "RP"
+			</cfquery>
+			<cfset authFields = { 
+				 "username" = "#creds.username#",
+				 "password" = "#creds.password#"
+			}>
+			<cfhttp url="https://api.returnpath.com/v2/auth/login" method="post" result="Auth_RP" timeout="999">
+				<cfhttpparam type="header" name="Accept" value="application/json">
+				<cfhttpparam type="body" name="Content-Type" value="application/json">
+			</cfhttp>
+			<cfdump var="Auth_RP" />
 		<cfelse>
 			<cfset session.userauth = 0>
 			Not authorized.
