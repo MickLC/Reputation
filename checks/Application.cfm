@@ -28,11 +28,11 @@
 				 "username" = "#creds.username#",
 				 "password" = "#creds.password#"
 			}>
-			<cfhttp url="https://api.returnpath.com/v2/auth/login" method="post" result="Auth_RP" timeout="999">
+			<cfhttp url="https://api.returnpath.com/v2/auth/login" method="post" result="session.Auth_RP" timeout="999">
 				<cfhttpparam type="header" name="Accept" value="application/json">
-				<cfhttpparam type="body" name="Content-Type" value="application/json">
+				<cfhttpparam type="body" value="#serializeJSON(authFields)#">
 			</cfhttp>
-			<cfdump var="Auth_RP" />
+			<cfdump var="#session.Auth_RP#" />
 		<cfelse>
 			<cfset session.userauth = 0>
 			Not authorized.
