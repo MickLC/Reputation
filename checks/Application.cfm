@@ -19,7 +19,7 @@
 		</cfquery>
 		<cfif auth.recordcount GT 0>
 			<cfset session.userauth = 1>
-			<cfquery name="creds">
+			<cfquery name="creds" datasource="reputation">
 				select *
 				from credentials
 				where provider = "RP"
