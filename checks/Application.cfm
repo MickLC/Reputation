@@ -32,6 +32,7 @@
 				<cfhttpparam type="header" name="Accept" value="application/json">
 				<cfhttpparam type="body" value="#serializeJSON(authFields)#">
 			</cfhttp>
+			<cfset session.Auth_RP = deserializeJSON(session.Auth_RP.filecontent) />
 			<cfdump var="#session.Auth_RP#" />
 		<cfelse>
 			<cfset session.userauth = 0>
