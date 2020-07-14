@@ -1,25 +1,32 @@
-<cfquery name="getKey" datasource="reputation" returntype="array">
-select provider, apikey
-from apikeys
-order by provider
+<cfquery name="getKey" datasource="reputation">
+	select provider, apikey
+	from apikeys
+	order by provider
 </cfquery>
-
+	
+<!--- API Keys --->
+<cfloop query="getKey" >
+	<cfif getKey.provider is '250ok'>
+		<cfset apikey_250 = getKey.apikey />
+	<cfelseif getKey.provider is 'Return Path'>
+		<cfset apikey_rp = getKey.apikey />
+	<cfelseif getKey.provider is 'monapi'>
+		<cfset apikey_rp = getKey.apikey />
+	</cfif>
+</cfloop>
+	
 <!--- Root endpoints --->
 <cfset endpoint_250 = 'https://api.250ok.com/api/1.0/' />
-<cfset endpoint_rp = 'https://api.returnpath.com/v1/' />
-
-<!--- API Keys --->
-<cfset apikey_250 = getKey[1].apikey />
-<cfset apikey_rp = getKey[2].apikey />
+<cfset endpoint_rp = 'https://api.returnpath.com/' />
 
 <!--- 250ok endpoints --->
 <cfset blacklist_endpoint_250 = #endpoint_250# & 'blacklistinformant/blacklisted' />
 <cfset trap_endpoint_250 = #endpoint_250# & 'reputationinformant/detail' />
 
 <!--- Return Path endpoints --->
-<cfset repmon_senders_rp = #endpoint_rp# & 'repmon/senders/' />
-<cfset repmon_senders_ips_rp = #endpoint_rp# & 'repmon/ips/' />
-<cfset blacklists_ips_rp = #endpoint_rp# & 'blacklists/ips' />
+<cfset repmon_senders_rp = #endpoint_rp# & 'v1/repmon/senders/' />
+<cfset repmon_senders_ips_rp = #endpoint_rp# & 'v1/repmon/ips/' />
+<cfset blacklists_ips_rp = #endpoint_rp# & 'v2/blacklists/ips' />
 
 <cfset repmon_senders_rp=repmon_senders_rp & form.ip />
 <cfhttp url="#repmon_senders_rp#" method="get" result="Results_RP" username="#apikey_rp#" timeout="999">
@@ -41,7 +48,7 @@ order by provider
 </cfhttp>
 <cfset talos_ip_results=deserializeJSON(talos.filecontent) />
 <!---<cfdump var="#talos_ip_results#">--->
-<!---<cfdump var="#rp_results#" />--->
+<!---<cfdump var="#rp_ip_results#" />--->
 <!---<cfdump var="#form#" />--->
 
 <html>
@@ -86,6 +93,13 @@ Sender Score:
 	<cfelse>
 		N/A (something weird happened here)
 	</cfif>
+<br />
+Risk:
+	<cfif isArray(rp_results.results.sender_score)>
+		None
+	<cfelseif structKeyExists(rp_results.results.sender_score,"risk")>
+		#rp_results.results.sender_score.risk#
+	</cfif>
 </p>
 </cfoutput>
 
@@ -122,7 +136,7 @@ Sender Score:
 		<cfif len(rp_ip_results.results.filtered_rate.impact)><cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#"></cfif>
         <cfif len(rp_ip_results.results.unknown_rate.impact)><cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#"></cfif>
         <cfif len(rp_ip_results.results.complaint_rate.impact)><cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#"></cfif>
-        <cfif len(rp_ip_results.results.blacklist.impact)><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif>
+        <!--- <cfif len(rp_ip_results.results.blacklist.impact)><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif> --->
         <cfif len(rp_ip_results.results.spam_traps.impact)><cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#"></cfif>
 	</cfchartseries>
 </cfchart>
@@ -156,6 +170,18 @@ Sender Score:
                 </cfloop>
         </cfchartseries>
 </cfchart>
+<p>Spam traps</p>
+<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
+	<cfchartseries type="line">
+			<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
+					<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.spam_traps.trend[a].value#">
+			</cfloop>
+	</cfchartseries>
+</cfchart>
+<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count#<br />
+Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
+Recycled: #rp_ip_results.results.spam_traps.recycled_count# </cfoutput></p>
+
 <cfelse>
 <p>
 <cfloop index="i" from="1" to="#arrayLen(rp_ip_results.errors)#">
