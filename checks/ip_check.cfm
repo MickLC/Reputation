@@ -228,7 +228,7 @@ Blocklist History:
 	</cfchart>
 	<p>Spam traps</p>
 	<cfset rp_trapcount = 0 />
-	<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Spam Traps" categorylabelpositions="up_45">
 		<cfchartseries type="line">
 				<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
 						<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.spam_traps.trend[a].value#">
