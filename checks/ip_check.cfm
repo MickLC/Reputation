@@ -116,18 +116,18 @@ Blocklist History:
 		<cfset rp_history = arrayNew(1)>
 		<cfset rp_active = arrayNew(1)>
 		<cfloop index="a" from="1" to="#arrayLen(rp_blacklist_result.data)#">
-			<br />Loop start: <cfdump var="#rp_blacklist_result.data[a]#">
+			<!--- <br />Loop start: <cfdump var="#rp_blacklist_result.data[a]#">
 			<br />RP Active: <cfdump var="#rp_active#">
-			<br />RP History: <cfdump var="#rp_history#">
+			<br />RP History: <cfdump var="#rp_history#"> --->
 			<cfset localstruct = rp_blacklist_result.data[a]>
 			<cfif rp_blacklist_result.data[a].active_hit = "True">
 				<cfset arrayAppend(rp_active,localstruct)>
 			<cfelse>
 				<cfset arrayAppend(rp_history,rp_blacklist_result.data[a])>
 			</cfif>
-			<br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
+			<!--- <br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
 			<br />RP Active: <cfdump var="#rp_active#">
-			<br />RP History: <cfdump var="#rp_history#">
+			<br />RP History: <cfdump var="#rp_history#"> --->
 		</cfloop>
 		<table border="2">
 			<tr>
@@ -138,7 +138,7 @@ Blocklist History:
 				<td>
 					<cfif arrayLen(rp_active)>
 						<cfloop index="a" from="1" to="#arrayLen(rp_active)#">
-							#rp_active.blacklist_name# (#dateFormat(rp_active[a].added_date,"MMM dd, yyyy")#) <br />
+							#rp_active[a].blacklist_name# (#dateFormat(rp_active[a].added_date,"MMM dd, yyyy")#) <br />
 						</cfloop>
 					<cfelse>
 						Nothing currently active.
@@ -147,7 +147,7 @@ Blocklist History:
 				<td>
 					<cfif arrayLen(rp_history)>
 						<cfloop index="a" from="1" to="#arrayLen(rp_history)#">
-							#rp_active.blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
+							#rp_active[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
 						</cfloop>
 					<cfelse>
 						No history found.
