@@ -56,7 +56,7 @@
 <cfset talos_ip_results=deserializeJSON(talos.filecontent) />
 <!---<cfdump var="#talos_ip_results#">--->
 <!---<cfdump var="#rp_ip_results#" />--->
-<cfdump var="#rp_blacklist_result#" />
+<!--- <cfdump var="#rp_blacklist_result#" /> --->
 <!---<cfdump var="#form#" />--->
 
 <html>
@@ -155,7 +155,7 @@ Blocklist History:
 				</td>
 			</tr>
 		</table>
-		<cfdump var="rp_history">
+		<!--- <cfdump var="rp_history"> --->
 	</cfif>
 </p>
 </cfoutput>
@@ -238,7 +238,7 @@ Blocklist History:
 	</cfchart>
 	<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count# (Current)<br />
 	Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
-	Recycled: #rp_ip_results.results.spam_traps.recycled_count# 
+	Recycled: #rp_ip_results.results.spam_traps.recycled_count# <br />
 	Cumulative (last 30 days): #rp_trapcount#</cfoutput></p>
 
 <cfelse>
