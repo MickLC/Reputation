@@ -108,121 +108,164 @@ Risk:
 	<cfelseif structKeyExists(rp_results.results.sender_score,"risk")>
 		#rp_results.results.sender_score.risk#
 	</cfif>
+Blocklist History:
+	<cfif isArray(rp_blacklist_result.data)>
+		None
+	<cfelseif structKeyExists(rp_blacklist_result.data)>
+		<cfset rp_history = arrayNew(1)>
+		<cfset rp_active = arrayNew(1)>
+		<cfloop index="a" from="1" to="#arrayLen(rp_blacklist_result.data)#">
+			<cfif rp_blacklist_result.data[a].active_hit = "True">
+				<cfset rp_active = arrayAppend(rp_blacklist_result.data[a])>
+			<cfelse>
+				<cfset rp_history = arrayAppend(rp_blacklist_result.data[a])>
+			</cfif>
+		</cfloop>
+		<table border="2">
+			<tr>
+				<td>Active</td>
+				<td>Historical</td>
+			</tr>
+			<tr>
+				<td>
+					<cfif arrayLen(rp_active)>
+						<cfloop index="a" from="1" to="#arrayLen(rp_active)#">
+							#rp_active.blacklist_name# (#dateFormat(rp_active[a].added_date,"MMM dd, yyyy")#) <br />
+						</cfloop>
+					<cfelse>
+						Nothing currently active.
+					</cfif>
+				</td>
+				<td>
+					<cfif arrayLen(rp_history)>
+						<cfloop index="a" from="1" to="#arrayLen(rp_history)#">
+							#rp_active.blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
+						</cfloop>
+					<cfelse>
+						No history found.
+					</cfif>
+				</td>
+			</tr>
+		</table>
+		<cfdump var="rp_history">
+	</cfif>
 </p>
 </cfoutput>
 
 <cfif NOT structKeyExists(rp_ip_results,"errors")>
-<!---<table border="2">
-	<tr>
-		<td>Measure</td>
-		<td>Impact</td>
-	</tr>
-	<cfloop index="i" from="1" to="#arrayLen(rp_results.results.reputation_measures)#">
-		<cfoutput>
-			<tr>
-				<td>#rp_results.results.reputation_measures[i].name#</td>
-				<td>#rp_results.results.reputation_measures[i].impact#</td>
-			</tr>
-		</cfoutput>
-	</cfloop>
-</table>--->
-
-<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
-	<cfchartseries type="line">
-		<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.sender_score.trend)#">
-			<cfchartdata item=#dateFormat("#rp_ip_results.results.sender_score.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.sender_score.trend[a].value#">
+	<!---<table border="2">
+		<tr>
+			<td>Measure</td>
+			<td>Impact</td>
+		</tr>
+		<cfloop index="i" from="1" to="#arrayLen(rp_results.results.reputation_measures)#">
+			<cfoutput>
+				<tr>
+					<td>#rp_results.results.reputation_measures[i].name#</td>
+					<td>#rp_results.results.reputation_measures[i].impact#</td>
+				</tr>
+			</cfoutput>
 		</cfloop>
-	</cfchartseries>
-</cfchart>
+	</table>--->
 
-<!---<cfdump var="#structCount(rp_ip_results.results)#)" />--->
-
-<cfchart format="png" chartheight="300" chartwidth="500" title="Impacts to Score" xaxistitle="Factor" yaxistitle="Points" categorylabelpositions="up_45">
-	<cfchartseries type="bar">
-		<cfif len(rp_ip_results.results.volume.impact)><cfchartdata item="Volume" value="#abs(rp_ip_results.results.volume.impact)#"></cfif>
-		<cfif len(rp_ip_results.results.rejected_rate.impact)><cfchartdata item="Rejected Rate" value="#abs(rp_ip_results.results.rejected_rate.impact)#"></cfif>
-		<cfif len(rp_ip_results.results.filtered_rate.impact)><cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#"></cfif>
-        <cfif len(rp_ip_results.results.unknown_rate.impact)><cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#"></cfif>
-        <cfif len(rp_ip_results.results.complaint_rate.impact)><cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#"></cfif>
-        <!--- <cfif len(rp_ip_results.results.blacklist.impact)><cfchartdata item="Blacklists" value="#abs(rp_ip_results.results.blacklist.impact)#"></cfif> --->
-        <cfif len(rp_ip_results.results.spam_traps.impact)><cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#"></cfif>
-	</cfchartseries>
-</cfchart>
-<br />
-<cfchart format="png" chartheight="300" chartwidth="500" title="Rejected Rate" xaxistitle="Date" yaxistitle="% Rejected" categorylabelpositions="up_45">
-        <cfchartseries type="line">
-                <cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.rejected_rate.trend)#">
-                        <cfchartdata item=#dateFormat("#rp_ip_results.results.rejected_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.rejected_rate.trend[a].value#">
-                </cfloop>
-        </cfchartseries>
-</cfchart>
-<cfchart format="png" chartheight="300" chartwidth="500" title="Filtered Rate" xaxistitle="Date" yaxistitle="% Filtered" categorylabelpositions="up_45">
-        <cfchartseries type="line">
-                <cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.filtered_rate.trend)#">
-                        <cfchartdata item=#dateFormat("#rp_ip_results.results.filtered_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.filtered_rate.trend[a].value#">
-                </cfloop>
-        </cfchartseries>
-</cfchart>
-<br />
-<cfchart format="png" chartheight="300" chartwidth="500" title="Unknown Rate" xaxistitle="Date" yaxistitle="% Unknown" categorylabelpositions="up_45">
-        <cfchartseries type="line">
-                <cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.unknown_rate.trend)#">
-                        <cfchartdata item=#dateFormat("#rp_ip_results.results.unknown_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.unknown_rate.trend[a].value#">
-                </cfloop>
-        </cfchartseries>
-</cfchart>
-<cfchart format="png" chartheight="300" chartwidth="500" title="Complaints" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
-        <cfchartseries type="line">
-                <cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.complaint_rate.trend)#">
-                        <cfchartdata item=#dateFormat("#rp_ip_results.results.complaint_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.complaint_rate.trend[a].value#">
-                </cfloop>
-        </cfchartseries>
-</cfchart>
-<p>Spam traps</p>
-<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
-	<cfchartseries type="line">
-			<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
-					<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.spam_traps.trend[a].value#">
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
+		<cfchartseries type="line">
+			<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.sender_score.trend)#">
+				<cfchartdata item=#dateFormat("#rp_ip_results.results.sender_score.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.sender_score.trend[a].value#">
 			</cfloop>
-	</cfchartseries>
-</cfchart>
-<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count#<br />
-Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
-Recycled: #rp_ip_results.results.spam_traps.recycled_count# </cfoutput></p>
+		</cfchartseries>
+	</cfchart>
+
+	<!---<cfdump var="#structCount(rp_ip_results.results)#)" />--->
+
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Impacts to Score" xaxistitle="Factor" yaxistitle="Points" categorylabelpositions="up_45">
+		<cfchartseries type="bar">
+			<cfif len(rp_ip_results.results.volume.impact)><cfchartdata item="Volume" value="#abs(rp_ip_results.results.volume.impact)#"></cfif>
+			<cfif len(rp_ip_results.results.rejected_rate.impact)><cfchartdata item="Rejected Rate" value="#abs(rp_ip_results.results.rejected_rate.impact)#"></cfif>
+			<cfif len(rp_ip_results.results.filtered_rate.impact)><cfchartdata item="Filtered Rate" value="#abs(rp_ip_results.results.filtered_rate.impact)#"></cfif>
+			<cfif len(rp_ip_results.results.unknown_rate.impact)><cfchartdata item="Unknown Rate" value="#abs(rp_ip_results.results.unknown_rate.impact)#"></cfif>
+			<cfif len(rp_ip_results.results.complaint_rate.impact)><cfchartdata item="Complaint Rate" value="#abs(rp_ip_results.results.complaint_rate.impact)#"></cfif>
+			<cfif len(rp_ip_results.results.spam_traps.impact)><cfchartdata item="Spamtraps" value="#abs(rp_ip_results.results.spam_traps.impact)#"></cfif>
+		</cfchartseries>
+	</cfchart>
+	<br />
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Rejected Rate" xaxistitle="Date" yaxistitle="% Rejected" categorylabelpositions="up_45">
+			<cfchartseries type="line">
+					<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.rejected_rate.trend)#">
+							<cfchartdata item=#dateFormat("#rp_ip_results.results.rejected_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.rejected_rate.trend[a].value#">
+					</cfloop>
+			</cfchartseries>
+	</cfchart>
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Filtered Rate" xaxistitle="Date" yaxistitle="% Filtered" categorylabelpositions="up_45">
+			<cfchartseries type="line">
+					<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.filtered_rate.trend)#">
+							<cfchartdata item=#dateFormat("#rp_ip_results.results.filtered_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.filtered_rate.trend[a].value#">
+					</cfloop>
+			</cfchartseries>
+	</cfchart>
+	<br />
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Unknown Rate" xaxistitle="Date" yaxistitle="% Unknown" categorylabelpositions="up_45">
+			<cfchartseries type="line">
+					<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.unknown_rate.trend)#">
+							<cfchartdata item=#dateFormat("#rp_ip_results.results.unknown_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.unknown_rate.trend[a].value#">
+					</cfloop>
+			</cfchartseries>
+	</cfchart>
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Complaints" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
+			<cfchartseries type="line">
+					<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.complaint_rate.trend)#">
+							<cfchartdata item=#dateFormat("#rp_ip_results.results.complaint_rate.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.complaint_rate.trend[a].value#">
+					</cfloop>
+			</cfchartseries>
+	</cfchart>
+	<p>Spam traps</p>
+	<cfset rp_trapcount = 0 />
+	<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
+		<cfchartseries type="line">
+				<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
+						<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.spam_traps.trend[a].value#">
+						<cfset rp_trapcount = #rp_trapcount# + #rp_ip_results.results.spam_traps.trend[a].value#>
+				</cfloop>
+		</cfchartseries>
+	</cfchart>
+	<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count# (Current)<br />
+	Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
+	Recycled: #rp_ip_results.results.spam_traps.recycled_count# 
+	Cumulative (last 30 days): #rp_trapcount#</cfoutput></p>
 
 <cfelse>
-<p>
-<cfloop index="i" from="1" to="#arrayLen(rp_ip_results.errors)#">
-	<cfoutput>#rp_ip_results.errors[i].message#</cfoutput>
-</cfloop>
-</p>
-<cfif NOT arrayIsEmpty(rp_results.results.reputation_measures)>
-<table border="2">
-        <tr>
-                <td>Measure</td>
-                <td>Impact</td>
-        </tr>
-        <cfloop index="i" from="1" to="#arrayLen(rp_results.results.reputation_measures)#">
-				<cfoutput>
-					<cfif len(rp_results.results.reputation_measures[i].impact)>
-                        <tr>
-                                <td>#rp_results.results.reputation_measures[i].name#</td>
-                                <td>#rp_results.results.reputation_measures[i].impact#</td>
-						</tr>
-					</cfif>
-                </cfoutput>
-        </cfloop>
-</table><br />
-<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
-        <cfchartseries type="line">
-                <cfloop index="a" from="1" to="#arrayLen(rp_results.results.sender_score.trend)#">
-                        <cfchartdata item=#dateFormat("#rp_results.results.sender_score.trend[a].date#","d mmm yyyy")# value="#rp_results.results.sender_score.trend[a].value#">
-                </cfloop>
-        </cfchartseries>
-</cfchart>
-<cfelse>
-<p>No reputation data returned from Research Senders.</p>
-</cfif>
+	<p>
+		<cfloop index="i" from="1" to="#arrayLen(rp_ip_results.errors)#">
+			<cfoutput>#rp_ip_results.errors[i].message#</cfoutput>
+		</cfloop>
+	</p>
+	<cfif NOT arrayIsEmpty(rp_results.results.reputation_measures)>
+		<table border="2">
+				<tr>
+						<td>Measure</td>
+						<td>Impact</td>
+				</tr>
+				<cfloop index="i" from="1" to="#arrayLen(rp_results.results.reputation_measures)#">
+						<cfoutput>
+							<cfif len(rp_results.results.reputation_measures[i].impact)>
+								<tr>
+										<td>#rp_results.results.reputation_measures[i].name#</td>
+										<td>#rp_results.results.reputation_measures[i].impact#</td>
+								</tr>
+							</cfif>
+						</cfoutput>
+				</cfloop>
+		</table><br />
+		<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
+				<cfchartseries type="line">
+						<cfloop index="a" from="1" to="#arrayLen(rp_results.results.sender_score.trend)#">
+								<cfchartdata item=#dateFormat("#rp_results.results.sender_score.trend[a].date#","d mmm yyyy")# value="#rp_results.results.sender_score.trend[a].value#">
+						</cfloop>
+				</cfchartseries>
+		</cfchart>
+	<cfelse>
+		<p>No reputation data returned from Research Senders.</p>
+	</cfif>
 </cfif>
 </body>
 </html>

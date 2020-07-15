@@ -23,7 +23,7 @@ order by provider
 
 <html>
 	<body>
-		<cfdump var="#session#" />
+		<!--- <cfdump var="#session#" /> --->
 		<!--- Return Path endpoints --->
 		<cfset repmon_ip_rp = #endpoint_rp# & 'repmon/ips' />
 		<cfset blacklists_ips_rp = #endpoint_rp# & 'blacklists/ips' />
@@ -56,8 +56,6 @@ order by provider
 		<!--- <cfdump var="#Results_RP_bottom_10#" /> --->
 		<cfset bottom10=deserializeJSON(Results_RP_bottom_10.filecontent) />
 		<!--- <cfdump var="#bottom10#" /> --->
-
-		<!---<cfdump var="#bottom10#" />--->
 		<table>
 			<tr>
 				<td>10 Worst Return Path Sender Scores</td>
