@@ -121,9 +121,9 @@ Blocklist History:
 			<br />RP History: <cfdump var="#rp_history#">
 			<cfset localstruct = rp_blacklist_result.data[a]>
 			<cfif rp_blacklist_result.data[a].active_hit = "True">
-				<cfset rp_active = arrayAppend(rp_active,localstruct)>
+				<cfset arrayAppend(rp_active,localstruct)>
 			<cfelse>
-				<cfset rp_history = arrayAppend(rp_history,rp_blacklist_result.data[a])>
+				<cfset arrayAppend(rp_history,rp_blacklist_result.data[a])>
 			</cfif>
 			<br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
 			<br />RP Active: <cfdump var="#rp_active#">
