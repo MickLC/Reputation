@@ -108,8 +108,9 @@ Risk:
 	<cfelseif structKeyExists(rp_results.results.sender_score,"risk")>
 		#rp_results.results.sender_score.risk#
 	</cfif>
+<br />
 Blocklist History:
-	<cfif isArray(rp_blacklist_result.data)>
+	<cfif arrayLen(rp_blacklist_result) = 0>
 		None
 	<cfelseif structKeyExists(rp_blacklist_result.data,"active_hit")>
 		<cfset rp_history = arrayNew(1)>
