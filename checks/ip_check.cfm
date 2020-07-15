@@ -116,12 +116,13 @@ Blocklist History:
 		<cfset rp_history = arrayNew(1)>
 		<cfset rp_active = arrayNew(1)>
 		<cfloop index="a" from="1" to="#arrayLen(rp_blacklist_result.data)#">
+			Loop start: <cfdump var="#rp_blacklist_result.data[a]#">
 			<cfif rp_blacklist_result.data[a].active_hit = "True">
 				<cfset rp_active = arrayAppend(rp_active,rp_blacklist_result.data[a])>
 			<cfelse>
 				<cfset rp_history = arrayAppend(rp_history,rp_blacklist_result.data[a])>
 			</cfif>
-			<cfdump var="#rp_blacklist_result.data[a]#">
+			<br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
 		</cfloop>
 		<table border="2">
 			<tr>
