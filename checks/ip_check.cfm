@@ -110,7 +110,7 @@ Risk:
 	</cfif>
 <br />
 Blocklist History:
-	<cfif arrayLen(rp_blacklist_result) = 0>
+	<cfif arrayLen(rp_blacklist_result) EQ 0>
 		None
 	<cfelseif structKeyExists(rp_blacklist_result.data,"active_hit")>
 		<cfset rp_history = arrayNew(1)>
