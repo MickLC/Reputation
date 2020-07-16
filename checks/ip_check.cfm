@@ -108,7 +108,7 @@
 		  border: 1px solid #ccc;
 		  width: 70%;
 		  border-left: none;
-		  height: 300px;
+		  height: 500px;
 		  animation: fadeEffect 1s; /* Fading effect takes 1 second */
 		}
 		/* Go from zero to full opacity */
@@ -138,9 +138,10 @@
 			// Show the current tab, and add an "active" class to the link that opened the tab
 			document.getElementById(datumName).style.display = "block";
 			evt.currentTarget.className += " active";
+
+			// Get the element with id="defaultOpen" and click on it
+			document.getElementById("defaultOpen").click();
 		}
-		// Get the element with id="defaultOpen" and click on it
-		document.getElementById("defaultOpen").click();
 	</script>	
 </head>
 <body>
@@ -210,7 +211,7 @@ Risk:
 			</cfoutput>
 		</cfloop>
 	</table>--->
-	<div id="Sender Score" class="tabcontent" id="defaultOpen">
+	<div id="Sender Score" class="tabcontent">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
 			<cfchartseries type="line">
 				<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.sender_score.trend)#">
@@ -268,8 +269,7 @@ Risk:
 				</cfchartseries>
 		</cfchart>
 	</div>
-	<div id="Spam Traps" class="tabcontent">
-		<p>Spam traps</p>
+	<div id="Spam Traps" class="tabcontent" id="defaultOpen">
 		<cfset rp_trapcount = 0 />
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Spam Traps" categorylabelpositions="up_45">
 			<cfchartseries type="line">
