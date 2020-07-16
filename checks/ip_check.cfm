@@ -326,7 +326,10 @@ Risk:
 									<td>
 										<cfif arrayLen(rp_history)>
 											<cfloop index="a" from="1" to="#arrayLen(rp_history)#">
-												#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
+												<cfif #dateFormat(rp_history[a].added_date,"yyyy")# EQ #dateFormat(rp_history[a].removed_date,"yyyy")#>
+													#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM d")# - #dateFormat(rp_history[a].removed_date,"MMM d, yyyy")#)<br />
+												<cfelse>
+													#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM d, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM d, yyyy")#)<br />
 											</cfloop>
 										<cfelse>
 											No history found.
