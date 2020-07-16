@@ -73,7 +73,7 @@
 		  float: left;
 		  border: 1px solid #ccc;
 		  background-color: #f1f1f1;
-		  width: 30%;
+		  width: 20%;
 		  height: 300px;
 		}
 	
@@ -83,7 +83,7 @@
 		  background-color: inherit;
 		  color: black;
 		  padding: 22px 16px;
-		  width: 30%;
+		  width: 100%;
 		  border: none;
 		  outline: none;
 		  text-align: left;
@@ -106,7 +106,7 @@
 		  float: left;
 		  padding: 0px 12px;
 		  border: 1px solid #ccc;
-		  width: 70%;
+		  width: 80%;
 		  border-left: none;
 		  height: 500px;
 		  animation: fadeEffect 1s; /* Fading effect takes 1 second */
