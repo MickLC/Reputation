@@ -109,7 +109,14 @@
 		  width: 70%;
 		  border-left: none;
 		  height: 300px;
+		  animation: fadeEffect 1s; /* Fading effect takes 1 second */
 		}
+		/* Go from zero to full opacity */
+		@keyframes fadeEffect {
+			from {opacity: 0;}
+			to {opacity: 1;}
+		}
+
 	</style>
 	<script>
 		function openDatum(evt, datumName) {
@@ -132,6 +139,8 @@
 			document.getElementById(datumName).style.display = "block";
 			evt.currentTarget.className += " active";
 		}
+		// Get the element with id="defaultOpen" and click on it
+		document.getElementById("defaultOpen").click();
 	</script>	
 </head>
 <body>
@@ -201,7 +210,7 @@ Risk:
 			</cfoutput>
 		</cfloop>
 	</table>--->
-	<div id="Sender Score" class="tabcontent">
+	<div id="Sender Score" class="tabcontent" id="defaultOpen">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
 			<cfchartseries type="line">
 				<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.sender_score.trend)#">
@@ -273,7 +282,7 @@ Risk:
 		<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count# (Current)<br />
 		Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
 		Recycled: #rp_ip_results.results.spam_traps.recycled_count# <br />
-		Cumulative (last 30 days): #rp_trapcount#</cfoutput></p>
+		Cumulative (last 30 days): #rp_trapcount#</p>
 		<p>Blocklist History:
 			<cfif arrayLen(rp_blacklist_result.data) EQ 0>
 				None
@@ -322,6 +331,7 @@ Risk:
 				</table>
 				<!--- <cfdump var="rp_history"> --->
 			</cfif>
+		</cfoutput>
 		</p>
 		</div>
 
