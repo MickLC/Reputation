@@ -268,68 +268,77 @@ Risk:
 	</div>
 	<div id="Spam Traps" class="tabcontent" id="defaultOpen">
 		<cfset rp_trapcount = 0 />
-		<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Spam Traps" categorylabelpositions="up_45">
-			<cfchartseries type="line">
-					<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
-							<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.spam_traps.trend[a].value#">
-							<cfset rp_trapcount = #rp_trapcount# + #rp_ip_results.results.spam_traps.trend[a].value#>
-					</cfloop>
-			</cfchartseries>
-		</cfchart>
-		<p>Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count# (Current)<br />
-		Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
-		Recycled: #rp_ip_results.results.spam_traps.recycled_count# <br />
-		Cumulative (last 30 days): #rp_trapcount#</p>
-		<p>Blocklist History:
-			<cfif arrayLen(rp_blacklist_result.data) EQ 0>
-				None
-			<cfelse>
-				<cfset rp_history = arrayNew(1)>
-				<cfset rp_active = arrayNew(1)>
-				<cfloop index="a" from="1" to="#arrayLen(rp_blacklist_result.data)#">
-					<!--- <br />Loop start: <cfdump var="#rp_blacklist_result.data[a]#">
-					<br />RP Active: <cfdump var="#rp_active#">
-					<br />RP History: <cfdump var="#rp_history#"> --->
-					<cfset localstruct = rp_blacklist_result.data[a]>
-					<cfif rp_blacklist_result.data[a].active_hit = "True">
-						<cfset arrayAppend(rp_active,localstruct)>
-					<cfelse>
-						<cfset arrayAppend(rp_history,rp_blacklist_result.data[a])>
-					</cfif>
-					<!--- <br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
-					<br />RP Active: <cfdump var="#rp_active#">
-					<br />RP History: <cfdump var="#rp_history#"> --->
-				</cfloop>
-				<table border="2">
-					<tr>
-						<td>Active</td>
-						<td>Historical</td>
-					</tr>
-					<tr>
-						<td>
-							<cfif arrayLen(rp_active)>
-								<cfloop index="a" from="1" to="#arrayLen(rp_active)#">
-									#rp_active[a].blacklist_name# (#dateFormat(rp_active[a].added_date,"MMM dd, yyyy")#) <br />
+		<table border="0">
+			<tr>
+				<td>
+					<cfchart format="png" chartheight="300" chartwidth="500" title="Spam Traps" xaxistitle="Date" yaxistitle="Spam Traps" categorylabelpositions="up_45">
+						<cfchartseries type="line">
+								<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.spam_traps.trend)#">
+										<cfchartdata item=#dateFormat("#rp_ip_results.results.spam_traps.trend[a].date#","d mmm yyyy")# value="#rp_ip_results.results.spam_traps.trend[a].value#">
+										<cfset rp_trapcount = #rp_trapcount# + #rp_ip_results.results.spam_traps.trend[a].value#>
 								</cfloop>
-							<cfelse>
-								Nothing currently active.
-							</cfif>
-						</td>
-						<td>
-							<cfif arrayLen(rp_history)>
-								<cfloop index="a" from="1" to="#arrayLen(rp_history)#">
-									#rp_active[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
-								</cfloop>
-							<cfelse>
-								No history found.
-							</cfif>
-						</td>
-					</tr>
-				</table>
-				<!--- <cfdump var="rp_history"> --->
-			</cfif>
-		</cfoutput>
-		</p>
+						</cfchartseries>
+					</cfchart>
+				</td>
+				<td>
+				Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count# (Current)<br />
+				Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
+				Recycled: #rp_ip_results.results.spam_traps.recycled_count# <br />
+				Cumulative (last 30 days): #rp_trapcount#
+				</td>
+				<td>
+					Blocklist History:
+						<cfif arrayLen(rp_blacklist_result.data) EQ 0>
+							None
+						<cfelse>
+							<cfset rp_history = arrayNew(1)>
+							<cfset rp_active = arrayNew(1)>
+							<cfloop index="a" from="1" to="#arrayLen(rp_blacklist_result.data)#">
+								<!--- <br />Loop start: <cfdump var="#rp_blacklist_result.data[a]#">
+								<br />RP Active: <cfdump var="#rp_active#">
+								<br />RP History: <cfdump var="#rp_history#"> --->
+								<cfset localstruct = rp_blacklist_result.data[a]>
+								<cfif rp_blacklist_result.data[a].active_hit = "True">
+									<cfset arrayAppend(rp_active,localstruct)>
+								<cfelse>
+									<cfset arrayAppend(rp_history,rp_blacklist_result.data[a])>
+								</cfif>
+								<!--- <br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
+								<br />RP Active: <cfdump var="#rp_active#">
+								<br />RP History: <cfdump var="#rp_history#"> --->
+							</cfloop>
+							<table border="2">
+								<tr>
+									<td>Active</td>
+									<td>Historical</td>
+								</tr>
+								<tr>
+									<td>
+										<cfif arrayLen(rp_active)>
+											<cfloop index="a" from="1" to="#arrayLen(rp_active)#">
+												#rp_active[a].blacklist_name# (#dateFormat(rp_active[a].added_date,"MMM dd, yyyy")#) <br />
+											</cfloop>
+										<cfelse>
+											Nothing currently active.
+										</cfif>
+									</td>
+									<td>
+										<cfif arrayLen(rp_history)>
+											<cfloop index="a" from="1" to="#arrayLen(rp_history)#">
+												#rp_active[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
+											</cfloop>
+										<cfelse>
+											No history found.
+										</cfif>
+									</td>
+								</tr>
+							</table>
+							<!--- <cfdump var="rp_history"> --->
+						</cfif>
+				</cfoutput>
+				</td>
+			</tr>
+		</table>
 		</div>
 
 <cfelse>
