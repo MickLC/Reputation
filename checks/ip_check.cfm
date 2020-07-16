@@ -208,7 +208,7 @@ Risk:
 			</cfoutput>
 		</cfloop>
 	</table>--->
-	<div id="Sender Score" class="tabcontent" style:"display:none">
+	<div id="Sender Score" class="tabcontent" style="display:none">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
 			<cfchartseries type="line">
 				<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.sender_score.trend)#">
