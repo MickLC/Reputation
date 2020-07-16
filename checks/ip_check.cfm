@@ -280,13 +280,13 @@ Risk:
 						</cfchartseries>
 					</cfchart>
 				</td>
-				<td style="valign:top;padding:10px">
+				<td style="padding:10px" valign="top">
 				Total count: <cfoutput>#rp_ip_results.results.spam_traps.total_count# (Current)<br />
 				Pristine: #rp_ip_results.results.spam_traps.pristine_count#<br />
 				Recycled: #rp_ip_results.results.spam_traps.recycled_count# <br />
 				Cumulative (last 30 days): #rp_trapcount#
 				</td>
-				<td style="valign:top">
+				<td valign="top">
 					Blocklist History:
 						<cfif arrayLen(rp_blacklist_result.data) EQ 0>
 							None
