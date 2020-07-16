@@ -83,7 +83,7 @@
 		  background-color: inherit;
 		  color: black;
 		  padding: 22px 16px;
-		  width: 100%;
+		  width: 30%;
 		  border: none;
 		  outline: none;
 		  text-align: left;
