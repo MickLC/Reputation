@@ -56,10 +56,10 @@
 	<cfhttpparam type="header" name="Accept" value="application/json">
 </cfhttp>
 <cfset talos_ip_results=deserializeJSON(talos.filecontent) />
-<!---<cfdump var="#talos_ip_results#">--->
-<!---<cfdump var="#rp_ip_results#" />--->
-<cfdump var="#rp_blacklist_result#" />
-<!---<cfdump var="#form#" />--->
+<!--- <cfdump var="#talos_ip_results#" /> --->
+<!--- <cfdump var="#rp_ip_results#" /> --->
+<!--- <cfdump var="#rp_blacklist_result#" /> --->
+<!--- <cfdump var="#form#" /> --->
 
 <html>
 <head>
@@ -294,7 +294,7 @@ Risk:
 							<cfset rp_history = arrayNew(1)>
 							<cfset rp_active = arrayNew(1)>
 							<cfloop index="a" from="1" to="#arrayLen(rp_blacklist_result.data)#">
-								<!--- <br />Loop start: <cfdump var="#rp_blacklist_result.data[a]#"> --->
+								<br />Loop start: <cfdump var="#rp_blacklist_result.data[a].active_hit#">
 								<br />RP Active: <cfdump var="#rp_active#">
 								<br />RP History: <cfdump var="#rp_history#">
 								<cfset localstruct = rp_blacklist_result.data[a]>
