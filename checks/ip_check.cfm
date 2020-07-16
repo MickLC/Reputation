@@ -208,7 +208,7 @@ Risk:
 			</cfoutput>
 		</cfloop>
 	</table>--->
-	<div id="Sender Score" class="tabcontent">
+	<div id="Sender Score" class="tabcontent" style:"display:none">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Sender Score (Last 30 Days)" xaxistitle="Date" yaxistitle="Sender Score" categorylabelpositions="up_45">
 			<cfchartseries type="line">
 				<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.sender_score.trend)#">
@@ -230,7 +230,7 @@ Risk:
 			</cfchartseries>
 		</cfchart>
 	</div>
-	<div id="Reject Rate" class="tabcontent">
+	<div id="Reject Rate" class="tabcontent" style="display:none">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Rejected Rate" xaxistitle="Date" yaxistitle="% Rejected" categorylabelpositions="up_45">
 				<cfchartseries type="line">
 						<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.rejected_rate.trend)#">
@@ -239,7 +239,7 @@ Risk:
 				</cfchartseries>
 		</cfchart>
 	</div>
-	<div id="Filter Rate" class="tabcontent">
+	<div id="Filter Rate" class="tabcontent" style="display:none">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Filtered Rate" xaxistitle="Date" yaxistitle="% Filtered" categorylabelpositions="up_45">
 				<cfchartseries type="line">
 						<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.filtered_rate.trend)#">
@@ -248,7 +248,7 @@ Risk:
 				</cfchartseries>
 		</cfchart>
 	</div>
-	<div id="Unknown Rate" class="tabcontent">
+	<div id="Unknown Rate" class="tabcontent" style="display:none">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Unknown Rate" xaxistitle="Date" yaxistitle="% Unknown" categorylabelpositions="up_45">
 				<cfchartseries type="line">
 						<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.unknown_rate.trend)#">
@@ -257,7 +257,7 @@ Risk:
 				</cfchartseries>
 		</cfchart>
 	</div>
-	<div id="Complaint Rate" class="tabcontent">
+	<div id="Complaint Rate" class="tabcontent" style="display:none">
 		<cfchart format="png" chartheight="300" chartwidth="500" title="Complaints" xaxistitle="Date" yaxistitle="Complaint Rate" categorylabelpositions="up_45">
 				<cfchartseries type="line">
 						<cfloop index="a" from="1" to="#arrayLen(rp_ip_results.results.complaint_rate.trend)#">
