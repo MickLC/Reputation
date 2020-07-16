@@ -138,9 +138,6 @@
 			// Show the current tab, and add an "active" class to the link that opened the tab
 			document.getElementById(datumName).style.display = "block";
 			evt.currentTarget.className += " active";
-
-			// Get the element with id="defaultOpen" and click on it
-			document.getElementById("defaultOpen").click();
 		}
 	</script>	
 </head>
@@ -369,5 +366,9 @@ Risk:
 		<p>No reputation data returned from Research Senders.</p>
 	</cfif>
 </cfif>
+<script>
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+</script>
 </body>
 </html>
