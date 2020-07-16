@@ -330,6 +330,7 @@ Risk:
 													#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM d")# - #dateFormat(rp_history[a].removed_date,"MMM d, yyyy")#)<br />
 												<cfelse>
 													#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM d, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM d, yyyy")#)<br />
+												</cfif>
 											</cfloop>
 										<cfelse>
 											No history found.
