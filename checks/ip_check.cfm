@@ -179,11 +179,11 @@ Risk:
 </p>
 <div class="tab">
 	<button class="tablinks" onclick="openDatum(event, 'Sender Score')">Sender Score</button>
-	<button class="tablinks" onclick="openDatum(event, 'Rejected Rate')">Reject Rate</button>
+	<button class="tablinks" onclick="openDatum(event, 'Reject Rate')">Reject Rate</button>
 	<button class="tablinks" onclick="openDatum(event, 'Filter Rate')">Filter Rate</button>
 	<button class="tablinks" onclick="openDatum(event, 'Unknown Rate')">Unknown Rate</button>
 	<button class="tablinks" onclick="openDatum(event, 'Complaint Rate')">Complaint Rate</button>
-	<button class="tablinks" onclick="openDatum(event, 'Spam Traps')">Spam Traps &nbsp; DNSBL History</button>
+	<button class="tablinks" onclick="openDatum(event, 'Spam Traps')">Spam Traps &amp; DNSBL History</button>
 </div>  
 </cfoutput>
 <cfif NOT structKeyExists(rp_ip_results,"errors")>
