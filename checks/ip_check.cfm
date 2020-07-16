@@ -300,10 +300,8 @@ Risk:
 								<cfset localstruct = rp_blacklist_result.data[a]>
 								<!--- <br />Localstruct.active_hit: <cfdump var="#localstruct.active_hit#"> --->
 								<cfif localstruct.active_hit EQ "true">
-									<br />In True
 									<cfset arrayAppend(rp_active,localstruct)>
 								<cfelse>
-									<br />In Else
 									<cfset arrayAppend(rp_history,localstruct)>
 								</cfif>
 								<!--- <br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#"> --->
@@ -328,7 +326,7 @@ Risk:
 									<td>
 										<cfif arrayLen(rp_history)>
 											<cfloop index="a" from="1" to="#arrayLen(rp_history)#">
-												#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
+												#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
 											</cfloop>
 										<cfelse>
 											No history found.
