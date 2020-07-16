@@ -298,10 +298,10 @@ Risk:
 								<br />RP Active: <cfdump var="#rp_active#">
 								<br />RP History: <cfdump var="#rp_history#"> --->
 								<cfset localstruct = rp_blacklist_result.data[a]>
-								<cfif rp_blacklist_result.data[a].active_hit = "True">
+								<cfif localstruct.active_hit = "true">
 									<cfset arrayAppend(rp_active,localstruct)>
 								<cfelse>
-									<cfset arrayAppend(rp_history,rp_blacklist_result.data[a])>
+									<cfset arrayAppend(rp_history,localstruct)>
 								</cfif>
 								<!--- <br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
 								<br />RP Active: <cfdump var="#rp_active#">
