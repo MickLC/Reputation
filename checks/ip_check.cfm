@@ -294,11 +294,11 @@ Risk:
 							<cfset rp_history = arrayNew(1)>
 							<cfset rp_active = arrayNew(1)>
 							<cfloop index="a" from="1" to="#arrayLen(rp_blacklist_result.data)#">
-								<br />Loop start: <cfdump var="#rp_blacklist_result.data[a].active_hit#">
-								<br />RP Active: <cfdump var="#rp_active#">
-								<br />RP History: <cfdump var="#rp_history#">
+								<!--- <br />Loop start: <cfdump var="#rp_blacklist_result.data[a].active_hit#"> --->
+								<!--- <br />RP Active: <cfdump var="#rp_active#"> --->
+								<!--- <br />RP History: <cfdump var="#rp_history#"> --->
 								<cfset localstruct = rp_blacklist_result.data[a]>
-								<br />Localstruct.active_hit: <cfdump var="#localstruct.active_hit#">
+								<!--- <br />Localstruct.active_hit: <cfdump var="#localstruct.active_hit#"> --->
 								<cfif localstruct.active_hit EQ "true">
 									<br />In True
 									<cfset arrayAppend(rp_active,localstruct)>
@@ -306,9 +306,9 @@ Risk:
 									<br />In Else
 									<cfset arrayAppend(rp_history,localstruct)>
 								</cfif>
-								<br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#">
-								<br />RP Active: <cfdump var="#rp_active#">
-								<br />RP History: <cfdump var="#rp_history#">
+								<!--- <br />Loop end:<cfdump var="#rp_blacklist_result.data[a]#"> --->
+								<!--- <br />RP Active: <cfdump var="#rp_active#"> --->
+								<!--- <br />RP History: <cfdump var="#rp_history#"> --->
 							</cfloop>
 							<table border="2">
 								<tr>
@@ -328,7 +328,7 @@ Risk:
 									<td>
 										<cfif arrayLen(rp_history)>
 											<cfloop index="a" from="1" to="#arrayLen(rp_history)#">
-												#rp_active[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
+												#rp_history[a].blacklist_name# (#dateFormat(rp_history[a].added_date,"MMM dd, yyyy")# - #dateFormat(rp_history[a].removed_date,"MMM dd, yyyy")#)<br />
 											</cfloop>
 										<cfelse>
 											No history found.
