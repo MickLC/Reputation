@@ -58,7 +58,7 @@
 <cfset talos_ip_results=deserializeJSON(talos.filecontent) />
 <!---<cfdump var="#talos_ip_results#">--->
 <!---<cfdump var="#rp_ip_results#" />--->
-<!--- <cfdump var="#rp_blacklist_result#" /> --->
+<cfdump var="#rp_blacklist_result#" />
 <!---<cfdump var="#form#" />--->
 
 <html>
